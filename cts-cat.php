@@ -1,4 +1,4 @@
-#!/bin/php
+#!/usr/bin/php
 <?php
 	
 	$sct1 = file_get_contents($argv[1]);
