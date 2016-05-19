@@ -20,7 +20,7 @@ If you only use the scts in binary format (by using the sct dir) you do not need
 
 ## Concenating cts logs
 
-usage: `./cts-cat.php <ctslog1> <ctslog2>`
+usage: `./cts-cat.php <ctslog1> <ctslog2>`  
 example: `./cts-cat.php /my/sct/dir/firstsite.sct /my/sct/dir/secondsite.sct`
 
 ## Server configuration
@@ -30,7 +30,9 @@ All methods will provide the certificate transparency information to the browser
 ### Apache - server info
 To use this you will need a recent apache version and add the following command in the virtual host:
 
-`SSLOpenSSLConfCmd ServerInfoFile path_to/www.example.com_sct.pem`
+```apache
+SSLOpenSSLConfCmd ServerInfoFile path_to/www.example.com_sct.pem
+```
 
 ### Apache - module
 Install [`mod_ssl_ct`](https://httpd.apache.org/docs/trunk/mod/mod_ssl_ct.html) and OpenSSL 1.0.2 or later. Follow the documentation on their site for more information. (use `CTStaticSCTs`)
