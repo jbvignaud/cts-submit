@@ -1,4 +1,4 @@
-#!/bin/php
+#!/usr/bin/php
 <?php
 	
 	$cert = file_get_contents($argv[1]);
