@@ -3,6 +3,7 @@
 	
 	$cert = file_get_contents($argv[1]);
 	$inter = file_get_contents($argv[2]);
+	$outdir = $argv[3];
 
 	$chain=array();
 	$chain[]=x509_pem2der64($cert);
@@ -34,7 +35,9 @@
 	{
 		$content = post_data_to_log($curl_handle, "https://" . $server, "/ct/v1/add-chain", $payload_json);
 		$obj = json_decode($content);
-		$scts[] = pack_sct ($obj);
+		$sct = pack_sct ($obj);
+		if (file_exists($outdir)) {sct_write($outdir . '/' . $server . '.sct')
+		$scts[] = $sct;
 	}
 
 	$tls_extention = pack_tls_extention ($scts);
@@ -97,5 +100,11 @@ function pack_tls_extention ($sct_array)
 	$tls_extention = pack("n", 18) . pack("n", $tls_extention_content_len) . $tls_extention_content;
 
 	return $tls_extention;
+}
+
+function sct_write ($filename, $content) {
+	$fp = fopen($filename, 'w');
+	fwrite($fp, $content);
+	fclose($fp);
 }
 ?>
