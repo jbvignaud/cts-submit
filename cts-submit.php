@@ -35,13 +35,14 @@
 	{
 		$content = post_data_to_log($curl_handle, "https://" . $server, "/ct/v1/add-chain", $payload_json);
 		$obj = json_decode($content);
-		$sct = pack_sct ($obj);
-		if (file_exists($outdir)) {sct_write($outdir . '/' . $server . '.sct')
-		$scts[] = $sct;
+		$scts[] = pack_sct ($obj);
 	}
 
 	$tls_extention = pack_tls_extention ($scts);
 
+	// write sct binary file if wanted
+	if (file_exists($outdir)) sct_write($outdir . '/main.sct', $tls_extention);
+	
 	$tls_extention_pem = "-----BEGIN SERVERINFO FOR EXTENSION 18-----\n" . wordwrap(base64_encode($tls_extention), 64, "\n", true) . "\n-----END SERVERINFO FOR EXTENSION 18-----\n";
 	echo $tls_extention_pem;
 	
