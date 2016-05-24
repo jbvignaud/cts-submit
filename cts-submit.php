@@ -3,6 +3,7 @@
 	
 	$cert = file_get_contents($argv[1]);
 	$inter = file_get_contents($argv[2]);
+	$outdir = $argv[3];
 
 	$chain=array();
 	$chain[]=x509_pem2der64($cert);
@@ -39,6 +40,9 @@
 
 	$tls_extention = pack_tls_extention ($scts);
 
+	// write sct binary file if wanted
+	if (file_exists($outdir)) sct_write($outdir . '/main.sct', $tls_extention);
+	
 	$tls_extention_pem = "-----BEGIN SERVERINFO FOR EXTENSION 18-----\n" . wordwrap(base64_encode($tls_extention), 64, "\n", true) . "\n-----END SERVERINFO FOR EXTENSION 18-----\n";
 	echo $tls_extention_pem;
 	
@@ -97,5 +101,11 @@ function pack_tls_extention ($sct_array)
 	$tls_extention = pack("n", 18) . pack("n", $tls_extention_content_len) . $tls_extention_content;
 
 	return $tls_extention;
+}
+
+function sct_write ($filename, $content) {
+	$fp = fopen($filename, 'w');
+	fwrite($fp, $content);
+	fclose($fp);
 }
 ?>
