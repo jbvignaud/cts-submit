@@ -17,7 +17,6 @@
 	curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
 
 	$servers=array();
-	$servers[]="log.certly.io";
 	$servers[]="ct.googleapis.com/aviator";
 	$servers[]="ct.googleapis.com/pilot";
 	$servers[]="ct.googleapis.com/rocketeer";
@@ -26,6 +25,7 @@
 	$servers[]="ct1.digicert-ct.com/log";
 	$servers[]="ct.izenpe.com";
 	$servers[]="ct.ws.symantec.com";
+	$servers[]="vega.ws.symantec.com";
 	*/
 	$servers[]="ctlog.api.venafi.com";
 
