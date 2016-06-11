@@ -12,8 +12,8 @@ This script is tuned to work with [Let's Encrypt](https://letsencrypt.org/) cert
 
 You can use `cts-submit.php` to submit the cert to [Certificate Transparency](https://www.certificate-transparency.org/) servers and get the sct.
 
-usage:  `./cts-submit.php <certificate> <intermediate> <sctdir>`  
-example `./cts-submit.php www.example.com_crt.pem lets-encrypt-x1-cross-signed.pem /my/sct/dir > www.example.com_sct.pem`  
+usage:  `./cts-submit.php <certificate> <intermediate> <sctfile>`  
+example `./cts-submit.php www.example.com_crt.pem lets-encrypt-x1-cross-signed.pem /my/scts/file.sct > www.example.com_sct.pem`  
 
 The `<sctdir>` is optional. If you do not specify it you'll only get the base64 encoded sct and not binary one written to a file.
 If you only use the scts in binary format (by using the sct dir) you do not need to catch the output (`> www.example.com_sct.pem`).
@@ -21,7 +21,7 @@ If you only use the scts in binary format (by using the sct dir) you do not need
 ## Concenating cts logs
 
 usage: `./cts-cat.php <ctslog1> <ctslog2>`  
-example: `./cts-cat.php /my/sct/dir/firstsite.sct /my/sct/dir/secondsite.sct`
+example: `./cts-cat.php /my/scts/firstsite.sct /my/scts/secondsite.sct`
 
 ## Server configuration
 
@@ -42,7 +42,7 @@ You have to compile nginx with the [`nginx-ct`](https://github.com/grahamedgecom
 Add this to your nginx config:
 ```nginx
 ssl_ct on;
-ssl_ct_static_scts /my/sct/dir;
+ssl_ct_static_scts /my/scts;
 ```
 
 ## Testing certificate transparency
