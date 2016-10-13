@@ -2,7 +2,6 @@
 *PHP command line tool to generate Certificate Transparency information*
 
 This script is tuned to work with [Let's Encrypt](https://letsencrypt.org/) certificates so it submits the certificate to:
-* log.certly.io
 * ct.googleapis.com/aviator
 * ct.googleapis.com/pilot
 * ct.googleapis.com/rocketeer
